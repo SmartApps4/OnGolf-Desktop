@@ -1,6 +1,6 @@
 Mac Version
 
-electron-packager ./ OnGolf --platform=darwin --arch=x64 --version=0.28.0 --icon=./OnGolf.icns --app-version=0.0.9 --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --asar
+electron-packager ./ OnGolf --platform=darwin --arch=x64 --version=0.28.0 --icon=./OnGolf.icns --app-version=0.9 --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --asar
 
 Windows 64 Bit Version
 

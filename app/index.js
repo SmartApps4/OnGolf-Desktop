@@ -9,7 +9,7 @@ var moment = require('moment');
 var gh_releases = require('electron-gh-releases');
 
 var options = {
-  repo: 'jenslind/electron-gh-releases',
+  repo: 'SmartApps4/OnGolf-Desktop',
   currentVersion: app.getVersion()
 }
 
