@@ -1,7 +1,16 @@
 Mac Version
 
-electron-packager ./ OnGolf --platform=darwin --arch=x64 --version=0.28.0 --icon=./OnGolf.icns --app-version=0.0.1 --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --asar
+electron-packager ./ OnGolf --platform=darwin --arch=x64 --version=0.28.0 --icon=./OnGolf.icns --app-version=0.0.9 --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --asar
 
 Windows 64 Bit Version
 
 electron-packager ./ OnGolf --platform=win32 --arch=x64 --version=0.27.2 --out=./win --icon=./OnGolf.icns --app-version=0.0.1 --ignore=node_modules/electron-prebuilt --ignore=node_modules/electron-packager --asar
+
+
+
+
+Code Signing Scripts
+
+codesign --deep --force --verbose --sign 9KR3C928N5 OnGolf.app --timestamp=none
+
+codesign --verify -vvvv OnGolf.app

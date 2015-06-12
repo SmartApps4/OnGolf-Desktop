@@ -1,6 +1,6 @@
 {
-  "url": "http://mycompany.com/myapp/releases/myrelease",
-  "name": "My Release Name",
-  "notes": "Theses are some release notes innit",
-  "pub_date": "2013-09-18T12:29:53+01:00",
+  "url": "https://github.com/SmartApps4/OnGolf-Desktop/blob/master/release/0.9/OnGolf.zip",
+  "name": "Golfing Gecko",
+  "notes": "Releasing Test Version",
+  "pub_date": "2015-06-10T12:29:53+01:00",
 }
