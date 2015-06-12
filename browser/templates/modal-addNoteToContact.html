@@ -1,0 +1,50 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="closeAddNoteToContact()">Close</button>
+    <h1 class="title">Add Note</h1>
+   
+      <button class="button button-clear" ng-click="closeAddNoteToContact('Save')">Save</button>
+  </ion-header-bar>
+  <ion-content>
+
+<div class="list">
+ <label class="item item-input">
+    <span class="input-label" name="Regarding">Note for {{data.contact.Name}} @ {{data.contact.Course}}</span>
+</label>
+ <div class="list">
+  <div class="list">
+   <label class="item item-input item-select">
+    <div class="input-label">
+      Regarding
+    </div>
+    <select ng-model="data.newNote.Description" placeholder="">
+      <option ng-value="regarding.text" ng-repeat="regarding in data.toDoRegarding">{{regarding.text}}</option>
+    </select>
+  </label>
+</div>
+  <div class="list">
+   <label class="item item-input item-select">
+    <div class="input-label">
+      Category
+    </div>
+    <select ng-model="data.newNote.Category" placeholder="">
+      <option ng-value="category.text" ng-repeat="category in data.toDoCategories">{{category.text}}</option>
+    </select>
+  </label>
+</div>
+  <div class="item item-input">
+    <div class="row">
+      <div class="col"> 
+        <label>
+          <textarea placeholder="Note" rows="1" ng-model="data.newNote.Notes" name="description" style="height: 68px;"></textarea>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+  </ion-content>
+</ion-view>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>OnGolf</title>
+
+    <!-- Webapp capable config -->
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+ 
+    <!-- Statusbar style -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+ 
+    <!-- Touch icons -->
+ 
+    <!-- non-retina iPhone pre iOS 7 -->
+   <!-- iPad retina icon -->
+<!-- iPad retina icon -->
+    <link href="/img/icon/apple-touch-icon-152x152.png"
+          sizes="152x152"
+          rel="apple-touch-icon">
+ 
+    <!-- iPad retina icon (iOS < 7) -->
+    <link href="/img/icon/apple-touch-icon-144x144.png"
+          sizes="144x144"
+          rel="apple-touch-icon">
+ 
+    <!-- iPad non-retina icon -->
+    <link href="/img/icon/apple-touch-icon-76x76.png"
+          sizes="76x76"
+          rel="apple-touch-icon">
+ 
+    <!-- iPad non-retina icon (iOS < 7) -->
+    <link href="/img/icon/apple-touch-icon-72x72.png"
+          sizes="72x72"
+          rel="apple-touch-icon">
+ 
+    <!-- iPhone 6 Plus icon -->
+    <link href="/img/icon/apple-touch-icon-180x180.png"
+          sizes="120x120"
+          rel="apple-touch-icon">
+ 
+    <!-- iPhone retina icon (iOS < 7) -->
+    <link href="/img/icon/apple-touch-icon-114x114.png"
+          sizes="114x114"
+          rel="apple-touch-icon">
+ 
+    <!-- iPhone non-retina icon (iOS < 7) -->
+    <link href="/img/icon/apple-touch-icon-57x57.png"
+          sizes="57x57"
+          rel="apple-touch-icon">
+ 
+    
+
+  <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <script src="js/SA4-service-CRM.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <script src="cordova.js"></script>
+
+    <!-- Angulartics Analytics -->
+    <script src="lib/angulartics/dist/angulartics.min.js"></script>
+     <script src="lib/angulartics/dist/angulartics-ga.min.js"></script>
+
+     <!-- Firebase -->
+      <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
+      <!-- AngularFire -->
+      <script src="https://cdn.firebase.com/libs/angularfire/1.1.1/angularfire.min.js"></script>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.6.0/lodash.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.4.9/angular-filter.min.js"></script>
+    
+    <!-- load momentJS (required for angular-moment) -->
+    <script src="lib/angular-moment/moment.min.js"></script>
+    <!-- load angular-moment -->
+    <script src="lib/angular-moment/angular-moment.min.js"></script>
+
+    <!-- angular ui-router extras for previous state -->
+     <script src="js/ct-ui-router-extras.min.js"></script>
+
+   
+    <!-- your app's js -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+  </head>
+  
+  <body ng-app="onGolf">
+    <!--
+      The views will be rendered in the <ion-nav-view> directive below
+      Templates are in the /templates folder (but you could also
+      have templates inline in this html file if you'd like).
+    -->
+    <ion-nav-view></ion-nav-view>
+
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58631965-2', 'auto');
+  // ga('send', 'pageview'); - Deleted for Angulartics
+   // ga('set', 'dimension1', 113456);
+
+</script>
+
+  </body>
+</html>

@@ -1,0 +1,38 @@
+<ion-view view-title="Activity Details">
+  
+  <ion-content class="activity-detail">
+
+  <div class="list">
+    <label class="item item-input">
+      <input style="width:60%;" type="text" value="{{data.activity.StartDate | moment: 'MMMM Do YYYY' }}">
+      <input style="width:40%; text-align:right;" type="text" value="{{data.activity.StartDate | moment: 'hh:mm a' }}">
+  </label>
+  <label class="item">Contact: {{data.activity.ContactName}}</label>
+  <label class="item">Account: {{data.activity.AccountName}}</label>
+  <label class="item">Regarding: {{data.activity.Description}}</label>
+  <label class="item">Category: {{data.activity.Category}}</label>
+  <div class="item item-divider"></div>
+
+  
+
+  <label class="activity-item item item-icon-left">
+
+    <i ng-if="data.activity.Type == 'atPhoneCall'" class="icon ion-ios-telephone"></i>
+                <i ng-if="data.activity.Type == 'atEmail'" class="icon ion-ios-email"></i>
+                <i ng-if="data.activity.Type == 'atToDo'" class="icon ion-compose"></i>
+                <i ng-if="data.activity.Type == 'atAppointment'" class="icon ion-calendar"></i>
+    <input type="text" placeholder="Subject" value="{{data.activity.Type.substr(2)}}">
+  </label>
+  <label class="item item-input" style="padding:0px;">
+    <textarea style="min-height:120px; height:100%;" >
+     {{data.activity.Notes}} 
+    </textarea>
+  </label>
+</div>
+
+<div class="item button button-block button-light" style="color:#2878BB;" ng-click="completeActivity()">
+  Complete Activity
+</div>
+  
+  </ion-content>
+</ion-view>

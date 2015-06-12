@@ -1,0 +1,92 @@
+<ion-view class="courses">
+<ion-nav-title on-hold="search.toTop()">
+      <span ng-hide="search.show">Courses</span> 
+    <span ng-if="search.show" ng-cloak>Search Courses</span>
+    </ion-nav-title>
+    <ion-nav-buttons side="left">
+      <button class="button button-clear"
+         ng-click="search.toggle()">
+       <i ng-hide="search.show" class="icon ion-ios-search" ng-cloak></i>
+       <i ng-if="search.show" class="icon ion-android-close" ng-cloak></i>
+     </button>
+   </ion-nav-buttons>
+    <ion-nav-buttons side="right">
+      <button ng-hide="search.show" class="button button-clear" ng-click="newCourse.newCourse.show()">
+        <i ng-hide="search.show" class="icon ion-plus"></i>
+      </button>
+   </ion-nav-buttons>
+<div class="bar bar-subheader">
+
+     <div class="button-bar contain">
+      <a class="button" ng-class="{'active' : search.activeButton == 'All'}" ng-click="changeSelect('All')">All</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Target'}" ng-click="changeSelect('Target')">Targ</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Qualify'}" ng-click="changeSelect('Qualify')">Qual</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Prospect'}" ng-click="changeSelect('Prospect')">Prosp</a>
+    </div> 
+</div> 
+<div class="bar bar-subheader item-input-inset" ng-if="search.show" ng-cloak>
+            <div class="item-input-wrapper">
+                       <!--  <i class="icon ion-android-search" style="color:#ddd"></i> -->
+                        <input placeholder="Search" type="search" ng-model="search.searchValue" >
+                        <i ng-if="search.searchValue.length > 0" ng-click="search.clear()" class="clear-search icon ion-close-circled"></i>
+            </div>
+</div>
+
+  <ion-content class="has-subheader" scroll-event-interval="5">
+      <ion-refresher
+        on-refresh="doRefresh()">
+      </ion-refresher>
+
+      <ion-list ng-repeat="item in filteredCourses | filter: search.searchValue">
+      <!--
+        <div class="item item-divider" ion-affix data-affix-within-parent-with-class="list">
+      -->
+        <div class="item item-divider" >
+          {{item[0]}}
+        </div>  
+        <ion-item ng-repeat="course in item[1] | filter: search.searchValue" href="#/tab/courses/{{course.$key}}" class="item-icon-left item-icon-right">
+
+<!--
+      <ion-item auto-list-divider auto-list-divider-value="{{course.Course}}" class="item-icon-left " ng-repeat="course in data.courses | orderBy:'Course' | filter:{Status:search.filter} | filter:{Course:search.searchValue}" type="item-text-wrap" href="#/tab/courses/{{course.$key}}" ng-click="search.hide()">
+-->
+
+      <div class="courseCircle">
+         {{ course.Course | limitTo:1 }}
+      </div>
+
+        <div class="row">
+            <div class="col col-75">
+              <h2>{{course.Course}}</h2>
+              <p>{{course.SubType}}</p>
+            </div>
+            <div class="col col-25 col-center text-center">
+            <div class="indicator" ng-class="course.Status">
+              <p ng-show="course.Status == 'Target'">Target</p>
+              <p ng-show="course.Status == 'Qualify'">Qualify</p>
+              <p ng-show="course.Status == 'Prospect'">Prospect</p>
+              <div class="indicator-bars">
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+              </div>
+              </div>
+            </div>
+        </div>
+
+         <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(course)">
+          Remove
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+
+      <!-- EMPTY STATE -->
+        <div ng-show="data.courses && (data.courses.length == 0)" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are no courses assigned to you.  You should check with the admin to get some courses.</h4>
+        </div>
+        <!-- /Empty State -->
+  </ion-content>
+</ion-view>

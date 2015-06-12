@@ -1,0 +1,70 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="closeScheduleActivity()">Close</button>
+    <h1 class="title">New Activity</h1>
+  
+      
+      <button class="button button-clear" ng-click="closeScheduleActivity('Save')">Save</button>
+  </ion-header-bar>
+  <ion-content>
+    
+  <div class="list">
+    <!-- Show contact when pre-selected -->
+    <label ng-show="!data.showContactSelector" class="item item-input">
+        <span class="input-label" name="Regarding">Activity for {{data.contact.Name}} - {{data.contact.Course}}</span>
+    </label>
+
+    <!-- show contact selector when contact not pre-selected -->
+    <label ng-show="data.showContactSelector" class="item item-input">
+    <span class="input-label">Activity for</span>
+    <select-box class="select-box" ng-Selected-Value="selectedValue" 
+        ng-Selected-Id="data.selectedKey" 
+        ng-Item-Name="Name" 
+        ng-Item-Id="$key" 
+        ng-title="Select Contact" 
+        ng-data="data.contacts" 
+        ng-placeholder="No contact selected">
+    </select-box>
+    </label>
+
+     <label class="item item-input item-select">
+      <div class="input-label">
+        Regarding
+      </div>
+      <select ng-model="data.newActivity.Description" placeholder="">
+        <option ng-value="regarding.text" ng-repeat="regarding in data.toDoRegarding">{{regarding.text}}</option>
+      </select>
+    </label>
+  
+     <label class="item item-input item-select">
+      <div class="input-label">
+        Category
+      </div>
+      <select ng-model="data.newActivity.Category" placeholder="">
+        <option ng-value="category.text" ng-repeat="category in data.toDoCategories">{{category.text}}</option>
+      </select>
+    </label>
+</div>
+
+  <label class="item item-input">
+  <span class="input-label">Date</span>
+  <input type="date" ng-model="data.newActivity.StartDate">
+  </label>
+
+  
+
+   <div class="item item-input">
+      
+       <div class="row">
+      <div class="col"> 
+        <label>
+          <textarea placeholder="Notes" rows="1" ng-model="data.newActivity.LongNotes" ng-required="true" name="description" class="ng-dirty ng-valid ng-valid-required" required="required" style="height: 68px;"></textarea>
+        </label>
+        
+      </div>
+    </div>
+    </div>
+    </div>
+
+  </ion-content>
+</ion-modal-view>

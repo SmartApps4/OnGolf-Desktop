@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="closeEditContact('Cancel')">Cancel</button>
+    <h1 class="title">{{data.contact.Name}}</h1>
+  
+      
+      <button class="button button-clear" ng-click="saveEditContact()">Save</button>
+  </ion-header-bar>
+  <ion-content>
+
+
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Name</span>
+    <input type="text" placeholder="" ng-model="data.contact.Name">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    <input type="text" placeholder="" ng-model="data.contact.Email">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Mobile Phone</span>
+    <input type="tel" placeholder="" ng-model="data.contact.Mobile">
+  </label>
+
+</div>
+
+  </ion-content>
+</ion-modal-view>

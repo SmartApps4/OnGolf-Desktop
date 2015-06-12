@@ -1,0 +1,61 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view view-title="{{group.name}}">
+          <div class="bar bar-subheader">
+
+     <div class="button-bar contain">
+      <a class="button" ng-class="{'active' : activeButton == 1}" ng-click="activeButton = 1;data.filter = ''">All</a>
+      <a class="button" ng-class="{'active' : activeButton == 2}" ng-click="activeButton = 2;data.filter = 'target'">Target</a>
+      <a class="button" ng-class="{'active' : activeButton == 3}" ng-click="activeButton = 3;data.filter = 'needmore'">Need</a>
+      <a class="button" ng-class="{'active' : activeButton == 4}" ng-click="activeButton = 4;data.filter = 'prospect'">Prospect</a>
+    </div> 
+    </div> 
+  <ion-content class="has-subheader">
+
+      <ion-refresher
+        on-refresh="doRefresh()">
+      </ion-refresher>
+
+    <ion-list>
+
+      <ion-item auto-list-divider auto-list-divider-value="{{contact.name}}" class="item-remove-animate item-icon-left" ng-repeat="contact in group.contacts | orderBy:'name' | filter:{phase:data.filter} " type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
+
+      <div class="contactCircle">
+         {{ contact.name | limitTo:1 }}
+      </div>
+
+        <div class="row">
+            <div class="col col-75">
+              <h2>{{contact.name}}</h2>
+              <p>{{contact.course}}</p>
+            </div>
+            <div class="col col-25 col-center text-center">
+            <div class="indicator" ng-class="contact.phase">
+              <p ng-show="contact.phase == 'target'">Target</p>
+              <p ng-show="contact.phase == 'needmore'">Need More Info</p>
+              <p ng-show="contact.phase == 'prospect'">Prospect</p>
+              <div class="indicator-bars">
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+              </div>
+              </div>
+            </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+
+     <!-- EMPTY STATE -->
+        <div ng-show="!group.contacts.length" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are no contacts in this group.</h4>
+        </div>
+        <!-- /Empty State -->
+
+  </ion-content>
+</ion-view>

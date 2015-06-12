@@ -1,0 +1,77 @@
+<ion-view view-title="Settings">
+  <ion-content >
+    <ion-list>
+
+     <div class="list list-profile">
+  <label class="item item-input">
+    <span class="input-label">Name</span>
+    <input type="text" ng-model="loginData.fullName">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">UserName</span>
+    <input type="text" ng-model="loginData.userName" >
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Email</span>
+    <input type="text" ng-model="loginData.email">
+  </label>
+  <label class="item item-input">
+    <span class="input-label">Phone</span>
+    <input type="text" ng-model="loginData.phone">
+  </label>
+</div>
+
+
+	<ion-item class="item-divider text-center" style="padding-top:15px; padding-bottom:15px;">
+		<h3><span style="color:#2878BB;"></span></h3>
+  </ion-item>
+
+	 <!-- Profile Settings -->
+<!--
+    <ion-item class="item-remove-animate item-icon-right" href="#/tab/settings/profile">
+  		Profile
+        <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+
+     <ion-item class="item-remove-animate item-icon-right" href="#/tab/settings/faq">
+      FAQ's
+        <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+-->
+
+      <!-- Report an Issue -->
+<!--
+     <ion-item class="item-remove-animate item-icon-right" ng-click="reportIssue()">
+  		Report an Issue
+        <i class="icon ion-chevron-right icon-accessory"></i>
+     </ion-item>
+
+     <ion-item class="item-divider">
+    </ion-item>
+-->
+	 <!-- LogOut -->
+    <ion-item class="item-remove-animate text-center logout" href="#/login">
+		<b>Log Out</b>
+    </ion-item>
+
+    </ion-list>
+  </ion-content>
+
+<ion-item class="item-divider text-center" style="position: absolute;
+  bottom: 80px;
+  width: 100%;
+  border-bottom: none;">
+     <br>
+     <p>
+     Powered By Smartapps<sup>4</sup> 
+     <br>
+     Version 1.0
+     </p>
+    </ion-item>
+
+
+
+</ion-view>
+
+
+

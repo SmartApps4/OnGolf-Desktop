@@ -1,0 +1,113 @@
+<ion-view class="contacts" >
+<ion-nav-title on-hold="search.toTop()">
+    <span ng-hide="search.show">Contacts</span> 
+    <span ng-if="search.show" ng-cloak>Search Contacts</span>
+</ion-nav-title>
+
+<ion-nav-buttons side="left">
+<button class="button button-clear"
+   ng-click="search.toggle()">
+ <i ng-hide="search.show" class="icon ion-ios-search" ng-cloak></i>
+ <i ng-if="search.show" class="icon ion-android-close" ng-cloak></i>
+</button>
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+  <button ng-hide="search.show" class="button button-clear" ng-click="newContact.show()">
+    <i  ng-hide="search.show" class="icon ion-person-add"></i>
+  </button>
+</ion-nav-buttons>
+
+<div class="bar bar-subheader" ng-show="!search.show">
+
+      <!-- filters -->
+     <div class="button-bar contain" >
+      <a class="button" ng-class="{'active' : search.activeButton == 'All'}" ng-click="changeSelect('All') ">All</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Target'}" ng-click="changeSelect('Target')">Targ</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Qualify'}" ng-click="changeSelect('Qualify')">Qual</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Prospect'}" ng-click="changeSelect('Prospect')">Prosp</a>
+    </div>
+</div>
+
+<div class="bar bar-subheader item-input-inset" ng-if="search.show" ng-cloak>
+  <div class="item-input-wrapper">
+    <!--  <i class="icon ion-android-search" style="color:#ddd"></i> -->
+    <input placeholder="Search" type="search" ng-if="search.show" ng-model="search.searchValue">
+        <i ng-if="search.searchValue.length > 0" ng-click="search.clear()" class="clear-search icon ion-close-circled"></i>
+            </div>
+</div>
+
+
+  <ion-content class="has-subheader" scroll-event-interval="5">
+      <ion-refresher
+        on-refresh="doRefresh()">
+      </ion-refresher>
+ 
+      <ion-list ng-repeat="item in filteredContacts | filter: search.searchValue" >
+       <!-- 
+       <div class="item item-divider" ion-affix data-affix-within-parent-with-class="list">
+       -->
+        <div class="item item-divider">
+          {{item[0]}}
+        </div>  
+        <ion-item ng-repeat="contact in item[1] | filter: search.searchValue" href="#/tab/contacts/{{contact.$key}}" class="item-icon-left item-icon-right">
+        
+      <!--
+      <ion-item auto-list-divider auto-list-divider-value="{{contact.Name}}" class="item-icon-left" ng-repeat="contact in data.contacts | orderBy:'Name' | matchType : search.activeButton | filter:{Name:search.searchValue}" type="item-text-wrap" href="#/tab/contacts/{{contact.$key}}" ng-click="search.hide()">
+      -->
+
+      <div class="contactCircle">
+         {{ contact.Name | limitTo:1 }}
+      </div>
+
+        <div class="row">
+            <div class="col col-75">
+              <h2>{{contact.Name}}</h2>
+              <p>{{contact.AccountName}}</p>
+            </div>
+            <div class="col col-25 col-center text-center">
+            <div class="indicator" ng-class="contact.Status">
+              <p ng-show="contact.Status === 'Target'">Target</p>
+              <p ng-show="contact.Status === 'Qualify'">Qualify</p>
+              <p ng-show="contact.Status === 'Prospect'">Prospect</p>
+              <div class="indicator-bars">
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+                <span class="indicator-bar"></span>
+              </div>
+              </div>
+            </div>
+        </div>
+
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(contact)">
+          Remove
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+
+     <!-- EMPTY STATE -->
+        <div ng-show="data.contacts && (data.contacts.length == 0)"   class="empty-state text-center" ng-cloak>
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are no contacts assigned to you.  You should check with the admin to get some contacts</h4>
+        </div>
+        <!-- /Empty State -->
+
+   
+
+  </ion-content>
+
+
+       <!-- Refresh Option - only if data doesn't load -->
+    <div ng-if="refreshOption" class="refreshOption" ng-cloak>
+      <div class="button button-clear button-center" ng-click="doRefresh()">
+        <i class="ion-refresh"></i>
+      </div>
+
+    </div>
+   <!-- /refresh option -->
+
+</ion-view>
+
+   

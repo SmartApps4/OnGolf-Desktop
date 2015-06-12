@@ -1,0 +1,31 @@
+ <!-- Calendar Slide Template -->
+<ion-content class="has-padding calendar">
+  <ion-refresher on-refresh="onRefresh()">
+  </ion-refresher>
+
+  <div class="box">
+    <h1>{{title}}</h1>
+    {{dateFilter}}
+    <p style="padding-left:3px;">{{date | amDateFormat:'dddd, MMMM Do YYYY'}}</p>
+   
+    <hr>
+
+    <div class="list">
+
+      <li class="item item-checkbox checkbox-og" ng-repeat="activity in activities | filter: dateFilter"  ng-class="{completed: item.checked}">
+       <label class="checkbox">
+         <input type="checkbox" ng-model="item.checked" ng-checked="item.checked" ng-change="activityChanged({key: activity.$key})">
+       </label>
+       <div class="details" ui-sref="tab.calendar-activity-detail({activityId: activity.$key})">
+        <h3>{{activity.Description}}</h3>
+        <p>{{activity.ContactName}} - {{activity.AccountName}}</p>
+        <p>{{activity.StartDate | moment: 'MMMM Do YYYY, h:mm:ss a'  }}</p>
+         <p>{{activity.Notes}}</p>
+       </div>
+      </li>
+
+    </div>
+  </div>
+</ion-content>
+
+  <!-- href="#/tab/calendar/task/{{task.id}}" -->

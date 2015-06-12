@@ -1,0 +1,22 @@
+{
+  "name": "Ongolf-Quick-Profiler",
+  "version": "1.0.0",
+  "productName": "OnGolf",
+  "description": "",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordan Berry",
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.27.2",
+    "grunt": "^0.4.5",
+    "grunt-electron-installer": "^0.33.0",
+    "gulp": "^3.8.11",
+    "moment": "^2.10.3"
+  },
+  "dependencies": {
+    "electron-gh-releases": "^1.0.1"
+  }
+}

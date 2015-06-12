@@ -1,0 +1,45 @@
+<ion-view>
+  <ion-content class="login-panel padding" style="min-height:100% !important;">
+  
+  <div class="login-wrapper">
+    <div class="logo">
+      <img src="img/ongolf.png" alt="OnGolf">
+    </div>
+
+    <form ng-submit="doLogin()">
+      <div class="list">
+        <label class="item item-input username">
+          <input type="text" placeholder="Username" ng-model="loginData.userName">
+        </label>
+        <label class="item item-input password">
+          <input type="password" placeholder="Password" ng-model="loginData.password">
+        </label>
+        <label>
+          <button class="button button-block button-OG" type="submit">Login</button>
+         <!--  <a href="#/signup" class="button button-clear button-block">Forgot Your Password?</a> -->
+        </label>
+      </div>
+    </form>
+    <br>
+    <div class="demo" style="background-color:rgba(255,255,255,.4); border-radius:30px;">
+    <div class="row text-left">
+    <div class="col" style="margin-left:15px;">
+          <h4>Demo Data?</h4> 
+    </div>
+    <div class="col text-right" style="margin-top:5px; margin-right:15px;">
+      <label class="toggle toggle-og">
+     <input type="checkbox" ng-model="data.useDemoData">
+     <div class="track">
+       <div class="handle"></div>
+     </div>
+    </label>
+    </div>
+
+    </div>
+    
+  </ion-content>
+</ion-view>
+
+
+
+

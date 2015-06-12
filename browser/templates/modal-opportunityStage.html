@@ -1,0 +1,30 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="closeOpportunityStage('Close')">Close</button>
+    <h1 class="title">Sales Phase</h1>
+  
+      
+      <button class="button button-clear" ng-click="closeOpportunityStage('Save')">Save</button>
+  </ion-header-bar>
+  <ion-content>
+    
+  <div class="list">
+
+  <div ng-repeat="wizard in data.wizardsStage">
+      <div class="item item-divider" >
+       {{wizard.Name}} {{wizard.currentValue}}
+      </div>
+
+      <label class="item item-radio" ng-repeat="item in wizard.pickListValues | orderBy:'number'" for="{{item}}">
+        <input type="radio" name="{{wizard.Name}}" ng-model="wizard.currentValue" ng-value="item.text">
+        <div class="item-content">
+          {{item.text}}
+        </div>
+        <i class="radio-icon ion-checkmark"></i>
+      </label>
+    </div>
+
+  </div>
+
+  </ion-content>
+</ion-modal-view>

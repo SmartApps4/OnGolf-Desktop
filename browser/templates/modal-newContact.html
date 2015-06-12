@@ -1,0 +1,55 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="closeNewContact('Cancel')">Cancel</button>
+    <h1 class="title">Edit Contact</h1>
+  
+      
+      <button class="button button-clear" ng-click="closeNewContact('Save', data.contact)">Save</button>
+  </ion-header-bar>
+  <ion-content>
+
+<!-- Course selector - shown when not adding from a pre-selected Course -->
+<label ng-show="data.showCourseSelector" class="item item-input item-stacked-label">  
+  <span class="input-label">Course</span>   
+  <select-box class="select-box" ng-Selected-Value="selectedValue" 
+      ng-Selected-Id="data.selectedKey" 
+      ng-Item-Name="Name" 
+      ng-Item-Id="$key" 
+      ng-title="Select Course" 
+      ng-label="Course"
+      ng-data="data.courses" 
+      ng-placeholder="Select Course">
+  </select-box>
+</label>
+
+<!-- Course already selected so show text of Course name -->
+<label ng-show="!data.showCourseSelector" class="item item-input">
+    <span class="input-label" name="Regarding">Create contact for {{data.course.Course}}:</span>
+</label>
+
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">First Name</span>
+    <input type="text" placeholder="" ng-model="data.newContact.FirstName">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Last Name</span>
+    <input type="text" placeholder="" ng-model="data.newContact.LastName">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Email</span>
+    <input type="text" placeholder="" ng-model="data.newContact.Email">
+  </label>
+  <label class="item item-input item-stacked-label">
+    <span class="input-label">Mobile Phone</span>
+    <input type="tel" placeholder="" ng-model="data.newContact.Mobile">
+  </label>
+  <div class="item item-divider">
+    
+  </div>
+ <ion-toggle ng-model="data.toDevice" ng-checked="data.toDevice">
+          Add to Device Contacts?
+  </ion-toggle>
+</div>
+
+  </ion-content>
+</ion-modal-view>

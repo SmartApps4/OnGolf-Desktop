@@ -1,0 +1,150 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+
+<style>
+  .loading-container .loading {
+  background-color:transparent;
+}
+</style>
+
+
+<ion-view view-title="Campaign">
+  <ion-content class="campaign-detail">
+    <ion-refresher
+        on-refresh="doRefresh()">
+      </ion-refresher>
+
+          <div class="detail-header">
+
+          <div class="avatar-container">
+            <div class="avatar">
+              <i class="ion-email"></i>
+            </div>
+          </div>
+
+          <div class="campaign-info">
+            <h2>{{data.campaign.Name}}</h2>
+            <br>
+            <hr>
+          </div>
+            <div class="row actions">
+              <div class="col" >
+                <button class="button-clear">
+                       <h4>{{data.campaign.SA4CampaignSummary.Targets}}<br>Contacts</h4>
+                </button>
+              </div>
+              <div class="col" >
+                <button class="button-clear">
+                   <h4>{{data.campaign.SA4CampaignSummary.Responses | number: 0}}<br>Opened</h4>
+                </button>
+              </div>
+              <div class="col">
+                <button class="button-clear">
+                   <h4>{{data.campaign.SA4CampaignSummary.Clicks | number: 0}} <br>Clicked</h4>
+                </button>
+              </div>
+            </div>
+
+            <div class="bar">
+              <div class="button-bar">
+                    <a class="button button-clear" ng-class="{'active' : shownContent == 'follow'}" ng-click="shownContent = 'follow' ; resize()">Follow Ups</a>
+                    <a class="button button-clear" ng-class="{'active' : shownContent == 'contacts'}" ng-click="shownContent = 'contacts' ; resize()">Contacts</a>
+                    <a class="button button-clear" ng-class="{'active' : shownContent == 'groups'}" ng-click="shownContent = 'groups' ; resize()">Groups</a>
+                    
+              </div>
+          </div>
+          <hr ng-class="{ 'first': shownContent == 'profile', 'second': shownContent == 'contacts', 'third': shownContent == 'groups'}" class="underline three">
+
+</div>
+
+
+<div class="content-wrapper">
+    <div class="contacts" ng-show="shownContent == 'contacts'">
+        <!-- INDICATOR -->
+
+         <ion-list>
+
+            <ion-item class="item-remove-animate item-icon-left " ng-repeat="contact in data.campaign.contacts | orderBy:'name'" type="item-text-wrap" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key,contactId: contact.$key})">
+        
+            <div class="contactCircle">
+               {{ contact.LastName | limitTo:1 }}
+            </div>
+
+              <div class="row">
+                  <div class="col col-75">
+                    <h2>{{contact.FirstName}} {{contact.LastName}}</h2>
+                    <p>{{contact.AccountName}}</p>
+                  </div>
+                  <div class="col col-25 col-center text-center">
+                  <div class="indicator" ng-class="contact.Type">
+                    <p ng-show="contact.Type == 'Target'">Target</p>
+                    <p ng-show="contact.Type == 'Qualify'">Qualify</p>
+                    <p ng-show="contact.Type == 'Prospect'">Prospect</p>
+                    <div class="indicator-bars">
+                      <span class="indicator-bar"></span>
+                      <span class="indicator-bar"></span>
+                      <span class="indicator-bar"></span>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+            </ion-item>
+          </ion-list>
+
+          <!-- EMPTY STATE -->
+        <div ng-show="data.campaign.contacts && (data.campaign.contacts.length == 0)" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are currently no contacts associated to this campaign.</h4>
+        </div>
+        <!-- /Empty State -->
+
+    </div>
+    <div class="groups" ng-show="shownContent == 'groups'">
+
+          <ion-list>
+
+            <ion-item class="item item-remove-animate" ng-repeat="(groupKey,groupValue) in data.campaign.groups" type="item-text-wrap" href="">
+
+              {{groupKey}} - {{groupValue}}
+            </ion-item>
+          </ion-list>
+
+        <!-- EMPTY STATE -->
+        <div ng-show="data.campaign.groups && (data.campaign.groups.length == 0)" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are currently no groups assigned to this campaign.</h4>
+        </div>
+        <!-- /Empty State -->
+          
+    </div>
+    <div class="follow" ng-show="shownContent == 'follow'">
+          <div class="list">
+
+              <a class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
+                
+                <i class="icon ion-ios-telephone"></i>
+                  <h2>{{response.Contact.NamePFL}}-{{response.Contact.Course}}</h2>
+                  <p>{{response.ResponseMethod}}</p>
+                  <p>{{response.ResponseDate | amDateFormat:'dddd, MMMM Do YYYY'}}</p>
+                  <i class="icon ion-chevron-right icon-accessory"></i>
+               
+            </a>
+          </div>
+
+               <!-- EMPTY STATE -->
+        <div ng-show="data.campaign.responses && (data.campaign.responses.length == 0)" class="empty-state text-center">
+        <i class="icon ion-android-happy"></i>
+          <h4>Looks like there are currently no followups in this group.</h4>
+        </div>
+        <!-- /Empty State -->
+    </div>
+</div>
+
+<!-- <button ng-click="showPopup()">PopUp</button> -->
+
+  </ion-content>
+</ion-view>

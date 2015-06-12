@@ -1,0 +1,24 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-OG">
+  <button class="button button-clear" ng-click="newContact.hide()">Close</button>
+    <h1 class="title">Add Contacts</h1>
+  
+      
+      <button class="button button-clear" ng-click="getContactsFromDevice()">Add</button>
+  </ion-header-bar>
+  <ion-content>
+  <div ng-hide="phoneContacts.length" class="button button-block button-clear" ng-click="getContactsFromDevice()" ng-cloak style="margin-top:100px; color:#2878BB;"><icon class="ion-person"></icon>Tap to Access Contacts </div>
+
+<ion-list ng-show="phoneContacts">
+
+<ion-checkbox class="item-remove-animate item-icon-left item-checkbox" ng-repeat="contact in phoneContacts" ng-model="contact.checked" ng-checked="contact.checked">
+
+     
+      <h2>{{ contact.name.formatted }}</h2>
+      <p>{{ contact.email }}</p>
+
+      </ion-checkbox>
+    </ion-list>
+
+  </ion-content>
+</ion-modal-view>

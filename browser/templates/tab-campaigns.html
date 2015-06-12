@@ -1,0 +1,37 @@
+<ion-view view-title="Marketing">
+<div class="bar bar-subheader">
+      <!-- filters -->
+     <div class="button-bar contain" >
+      <a class="button" ng-class="{'active' : search.activeButton == 'All'}" ng-click="changeSelect('All') ">All</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Active'}" ng-click="changeSelect('Active')">Active</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Inactive'}" ng-click="changeSelect('Inactive')">Inactive</a>
+      <a class="button" ng-class="{'active' : search.activeButton == 'Setup'}" ng-click="changeSelect('Setup')">Setup</a>
+    </div>
+</div>
+  
+  <ion-content class="has-subheader">
+
+    <ion-refresher
+    on-refresh="doRefresh()">
+  </ion-refresher>
+  
+    <!-- Campaigns -->
+    <ion-list>
+      <ion-item class="item-icon-right" ng-repeat="campaign in filteredCampaigns" type="item-text-wrap" href="#/tab/campaigns/{{campaign.$key}}">
+        <h2>{{campaign.Name}}</h2>
+        <p>{{campaign.Description}}</p>
+
+        <span style="margin-top:10px;" class="badge badge-assertive">{{campaign.SA4CampaignSummary.Responses}}</span>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+
+
+    <!-- EMPTY STATE -->
+        <div ng-show="data.filteredCampaigns && (data.filteredCampaigns.length === 0)" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are no active campaigns.  You should check with the admin to get some campiagns started.</h4>
+        </div>
+        <!-- /Empty State -->
+  </ion-content>
+</ion-view>

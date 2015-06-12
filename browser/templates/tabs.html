@@ -1,0 +1,43 @@
+<!--
+Create tabs with an icon and label.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+<!--
+  The nav bar that will be updated as we navigate between views.
+-->
+<ion-nav-bar class="bar-OG">
+  <ion-nav-back-button class="button-clear">
+<i class="ion-chevron-left"></i>
+</ion-nav-back-button>
+</ion-nav-bar>
+
+<ion-tabs class="tabs-icon-top tabs-stable">
+
+  <!-- Contacts Tab -->
+  <ion-tab title="Contacts" icon-off="ion-ios-people-outline" icon-on="ion-ios-people" href="#/tab/contacts">
+    <ion-nav-view name="tab-contacts"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Courses Tab -->
+  <ion-tab title="Courses" icon-off="ion-ios-flag-outline" icon-on="ion-ios-flag" href="#/tab/courses">
+    <ion-nav-view name="tab-courses"></ion-nav-view>
+  </ion-tab>
+
+  <!-- Calendar Tab -->
+  <ion-tab title="Calendar" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar" badge="data.counts.numOfActivities" badge-style="badge-assertive" href="#/tab/calendar">
+    <ion-nav-view name="tab-calendar"></ion-nav-view>
+  </ion-tab>
+
+   <!-- Campaigns Tab -->
+  <ion-tab title="Marketing" icon-off="ion-ios-email-outline" icon-on="ion-ios-email" badge="data.counts.numOfResponses" badge-style="badge-assertive" href="#/tab/campaigns">
+    <ion-nav-view name="tab-campaigns"></ion-nav-view>
+  </ion-tab>
+
+     <!-- Settings Tab -->
+  <ion-tab title="Settings" icon-off="ion-ios-gear-outline" icon-on="ion-ios-gear" href="#/tab/settings">
+    <ion-nav-view name="tab-settings"></ion-nav-view>
+  </ion-tab>
+
+
+</ion-tabs>

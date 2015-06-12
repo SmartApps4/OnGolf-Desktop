@@ -1,0 +1,230 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+
+<style>
+  .loading-container .loading {
+  background-color:transparent;
+}
+</style>
+<ion-view view-title="Course">
+</ion-nav-buttons>
+<ion-nav-buttons side="right">
+  <button class="button button-clear" ng-click="updateCourse.show()">
+    <i  class="icon ion-plus"></i>
+  </button>
+</ion-nav-buttons>
+    
+  <ion-content class="content course-detail" delegate-handle="my-scroller">
+
+   <ion-refresher
+        on-refresh="doRefresh()">
+      </ion-refresher>
+    <div class="detail-header">
+
+    <div elastic-header scroll-handle="my-scroller" class="background-image"></div>
+
+    <div class="avatar-container">
+      <div class="avatar">
+        {{ data.course.Course | limitTo:1 }}
+      </div>
+    </div>
+
+    <div class="course-info">
+      <h2>{{data.course.Course}}</h2>
+      <h4 ng-if="data.course.Address"><i class="ion-location"></i> {{data.course.Address.City}},{{data.course.Address.State}}</h4>
+      <h4 style="opacity:.5;" ng-if="!data.course.Address"><i class="ion-location"></i> No Location Data</h4>
+       <hr>
+    </div>
+           
+    <div class="bar">
+      <div class="button-bar">
+            <a class="button button-clear" ng-class="{'active' : shownContent == 'profile'}" ng-click="shownContent = 'profile'">Profile</a>
+            <a class="button button-clear" ng-class="{'active' : shownContent == 'contacts'}" ng-click="shownContent = 'contacts'">Contacts</a>
+            <a class="button button-clear" ng-class="{'active' : shownContent == 'activity'}" ng-click="shownContent = 'activity'">Activity</a>
+            <a class="button button-clear" ng-class="{'active' : shownContent == 'noteshistory'}" ng-click="shownContent = 'noteshistory'">History</a>
+      </div>
+  </div>
+        <hr ng-class="{ 'first': shownContent == 'profile', 'second': shownContent == 'contacts', 'third': shownContent == 'activity', 'fourth': shownContent == 'noteshistory'}" class="underline four">
+</div>
+
+
+<div class="content-wrapper">
+  <div class="contacts" ng-if="shownContent == 'profile'" ng-cloak>
+    <!-- INDICATOR -->
+    <a class="item contactsr text-center item-icon-right item-icon-left" ng-click="updateCourse.profileCourse.show()">
+      <div class="indicator" ng-class="data.course.Status">
+        <p ng-if="data.course.Status == 'Target'" ng-cloak>Target</p>
+        <p ng-if="data.course.Status == 'Qualify'" ng-cloak>Qualify</p>
+        <p ng-if="data.course.Status == 'Prospect'" ng-cloak>Prospect</p>
+        <div class="indicator-bars">
+          <span class="indicator-bar"></span>
+          <span class="indicator-bar"></span>
+          <span class="indicator-bar"></span>
+        </div>
+      </div>         
+      <i class="icon ion-chevron-right icon-accessory"></i>
+    </a>
+
+    <a style="min-height:60px; margin-bottom:10px;" class="item contacts text-center item-icon-right item-icon-left" ng-click="updateCourse.opportunityStage.show()">
+      <div class="Stage" ng-class="data.opportunity.Stage">
+        <p style="color:#dddd;" ng-if="data.opportunity.Stage == null ">No Opp Data</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Target (1%)' " ng-cloak>Target (1%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Prospect (10%)'" ng-cloak>Prospect (10%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Qualified (40%)'" ng-cloak>Qualified (40%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Active (60%)'" ng-cloak>Active (60%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Verbal (90%)'" ng-cloak>Verbal (90%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Won (100%)'" ng-cloak>Won (100%)</p>
+      </div>
+
+
+        
+      <i class="icon ion-chevron-right icon-accessory"></i>
+    </a>
+
+<!--TODO - make this an ng-repeat -->
+    <!-- Profile data -->
+    <div class="list">
+      <div class="item item-divider">
+        Profile Data
+      </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Irrigation System</span>
+        <input type="text" ng-model="data.course.SA4AccountOnGolf.IrrigationSystem">
+      </label>
+       <label class="item item-input item-stacked-label">
+        <span class="input-label">Pump Station</span>
+        <input type="text" ng-model="data.course.SA4AccountOnGolf.PumpStation">
+      </label>
+      </label>
+       <label class="item item-input item-stacked-label">
+        <span class="input-label">Soil Sensor</span>
+        <input type="text" ng-model="data.course.SA4AccountOnGolf.SoilSensorSystem">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Weather Station</span>
+        <input type="text" ng-model="data.course.SA4AccountOnGolf.WeatherStation">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Water Source</span>
+        <input type="text" ng-model="data.course.SA4AccountOnGolf.WaterSource">
+      </label>
+     
+    </div>
+  </div>
+  <!-- contacts -->
+
+
+    <div class="contacts" ng-if="shownContent == 'contacts'" >
+          <ion-list>
+          <div class="item item-divider" style="margin-top:10px;" ng-if="data.contacts">
+            Contacts
+          </div>
+
+            <ion-item class="item-remove-animate item-icon-left " ng-repeat="contact in data.contacts | orderBy:'LastName' | filter:{phase:data.filter} " type="item-text-wrap" ui-sref="tab.course-contact-detail({ courseId: data.course.$key,contactId: contact.$key})">
+
+            <div class="contactCircle">
+               {{ contact.LastName | limitTo:1 }}
+            </div>
+
+              <div class="row">
+                  <div class="col col-75">
+                    <h2>{{contact.Name}}</h2>
+                    <p>{{contact.Status}}</p>
+                  </div>
+                  <div class="col col-25 col-center text-center">
+                  <div class="indicator" ng-class="contact.Status">
+                    <p ng-if="contact.Status == 'Target'">Target</p>
+                    <p ng-if="contact.Status == 'Qualify'">Qualify</p>
+                    <p ng-if="contact.Status == 'Prospect'">Prospect</p>
+                    <div class="indicator-bars">
+                      <span class="indicator-bar"></span>
+                      <span class="indicator-bar"></span>
+                      <span class="indicator-bar"></span>
+                    </div>
+                    </div>
+                  </div>
+              </div>
+
+           
+
+            </ion-item>
+          </ion-list>
+
+              <!-- EMPTY STATE -->
+        <div ng-if="!data.contacts.length" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there are no contacts associated with this course</h4>
+        </div>
+        <!-- /Empty State -->
+
+    </div>
+    <!-- Activity -->
+    <div class="activity" ng-if="shownContent == 'activity'">
+          <div class="list">
+          <div class="item item-divider" ng-if="data.activities">
+            Recent Activity
+          </div>
+
+              <a class="activity-item item item-icon-left item-icon-right" ng-repeat="activity in data.activities | orderBy: '-StartDate'" ui-sref="tab.course-activity-detail({ courseId: data.course.$key, activityId: activity.$key })">
+                
+                <i ng-if="activity.Type == 'atPhoneCall'" class="icon ion-ios-telephone"></i>
+                <i ng-if="activity.Type == 'atEmail'" class="icon ion-ios-email"></i>
+                <i ng-if="activity.Type == 'atToDo'" class="icon ion-compose"></i>
+                <i ng-if="activity.Type == 'atAppointment'" class="icon ion-calendar"></i>
+                  <h2>{{activity.ContactName}} - {{activity.Category}}</h2>
+                  <p>{{activity.Notes}}</p>
+                  <p>{{activity.StartDate | moment: 'MMMM Do YYYY, h:mm:ss a'}}</p>
+                  <i class="icon ion-chevron-right icon-accessory"></i>
+            </a>
+
+           <!-- EMPTY STATE -->
+        <div ng-if="!data.activities.length" class="empty-state text-center">
+        <i class="icon ion-android-sad"></i>
+          <h4>Looks like there is currently no activity with this course.</h4>
+        </div>
+        <!-- /Empty State -->
+          </div>
+    </div>
+
+    <div class="activity" ng-if="shownContent == 'noteshistory'">
+<div class="list">
+
+          <div class="item item-divider" ng-if="data.activities">
+            Notes & History
+          </div>
+
+             <a class="activity-item item item-icon-left item-icon-right" ng-repeat="historyItem in data.course.history | orderBy : '-CompletedDate' " ui-sref="tab.course-history-detail({ courseId: data.course.$key, historyId: historyItem.$key })">
+                
+                <i ng-if="historyItem.Type == 'atPhoneCall'" class="icon ion-ios-telephone"></i>
+                <i ng-if="historyItem.Type == 'atEmail'" class="icon ion-ios-email"></i>
+                <i ng-if="historyItem.Type == 'atToDo'" class="icon ion-compose"></i>
+                <i ng-if="historyItem.Type == 'atAppointment'" class="icon ion-calendar"></i>
+                <i ng-if="historyItem.Type == 'atDatabaseChange'" class="icon ion-briefcase"></i>
+                <i ng-if="historyItem.Type == 'atNote'" class="icon ion-clipboard"></i>
+                  <h2>{{historyItem.AccountName}} {{historyItem.ContactName}}</h2>
+                  <p>{{historyItem.Description}}</p>
+                  <p>{{historyItem.CompletedDate | moment: 'MMMM Do YYYY, h:mm:ss a'  }}</p>
+                  <p>{{historyItem.Notes}}</p>
+                  <i class="icon ion-chevron-right icon-accessory"></i> 
+            </a>
+          </div>
+
+    </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<!-- <button ng-click="showPopup()">PopUp</button> -->
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,56 @@
+<ion-view view-title="Calendar">
+<ion-nav-buttons side="right">
+      <button class="button button-clear" ng-click="newActivity.scheduleActivity.show()">
+        <i class="icon ion-plus"></i>
+      </button>
+   </ion-nav-buttons>
+<div class="calendar-top">
+<div class="bar bar-subheader bar-calendar">
+  <div class="button-bar contain">
+          <a class="button button-clear" ng-class="{'active' : activeSlide == '0'}" ng-click="position(0)">PAST <!-- {{before | amDateFormat:'D'}}  --></a>
+          <a class="button button-clear" ng-class="{'active' : activeSlide == '1'}" ng-click="position(1)">{{yesterday | amDateFormat:'D'}}</a>
+          <a class="button button-clear" ng-class="{'active' : activeSlide == '2'}" ng-click="position(2)">{{today | amDateFormat:'D'}}</a>
+          <a class="button button-clear" ng-class="{'active' : activeSlide == '3'}" ng-click="position(3)">{{tomorrow | amDateFormat:'D'}}</a>
+          <a class="button button-clear" ng-class="{'active' : activeSlide == '4'}" ng-click="position(4)">FUTURE<!--  {{after | amDateFormat:'D'}}  --></a>
+    </div>
+      
+    </div>
+    <hr ng-class="{ 'first': shownContent == 'activity'}" class="underline five">
+</div>
+
+
+<ion-content scroll="false" class="scroll-content ionic-scroll scroll-content-false has-subheader calendar">
+
+ 
+<ion-slide-box active-slide="activeSlide" on-slide-changed="slideHasChanged($index)" show-pager="false">
+  <!-- EARLIER SLIDE -->
+  	<ion-slide>
+  		 <calendar-slide title="Past" date="before" activities="data.activities" filter-name="beforeFilter" activity-changed="completeActivity(key)" on-refresh="doRefresh()"></calendar-slide>  
+  	</ion-slide>
+
+  <!-- YESTERDAY -->
+  	<ion-slide>
+  		 <calendar-slide title="Yesterday" date="yesterday" activities="data.activities" filter-name="sameFilter" activity-changed="completeActivity(key)" on-refresh="doRefresh()" ></calendar-slide> 
+  	</ion-slide>
+
+  <!-- Today -->
+  	<ion-slide>
+  	  <calendar-slide title="Today" date="today" activities="data.activities" filter-name="sameFilter" activity-changed="completeActivity(key)" on-refresh="doRefresh()"></calendar-slide>
+  	</ion-slide> 
+
+    <!-- Tomorrow -->
+    <ion-slide>
+        <calendar-slide title="Tomorrow" date="tomorrow" activities="data.activities" filter-name="sameFilter" activity-changed="completeActivity(key)" on-refresh="doRefresh()"></calendar-slide>
+    </ion-slide> 
+  			  
+
+   <!-- After -->
+    <ion-slide>
+        <calendar-slide title="Future" date="after" activities="data.activities" filter-name="afterFilter" activity-changed="completeActivity(key)" on-refresh="doRefresh()"></calendar-slide>
+    </ion-slide> 
+  			
+  <!-- /After -->
+  </ion-slide-box>
+
+  </ion-content>
+</ion-view>
