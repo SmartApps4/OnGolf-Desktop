@@ -40,7 +40,7 @@ angular.module('onGolf.controllers', [])
 .controller('LoginCtrl', function($rootScope, $scope, $state, $ionicHistory, $ionicPopup, $ionicLoading, SA4Helper, CRM) {
 
   $scope.data = {}; 
-  $scope.data.selectDemoData = false; 
+  $scope.data.useDemoData = false; 
   $scope.loginData = CRM.getConfig(); //load login info  
 
   // Hide Splashscreen Gracefully - https://calendee.com/2015/03/03/polish-app-launch-with-cordova-splashscreen-plugin/
@@ -1062,7 +1062,7 @@ if (ionic.Platform.isIOS()) {
     else {
         $scope.data.opportunity.Description = $scope.data.course.Course + '- Initial Sale'; 
         $scope.data.opportunity.Type = 'New';
-        $scope.data.opportunity.SalesPotential = 5000; 
+        $scope.data.opportunity.SalesPotential = 3500; 
          
         $scope.data.opportunity.Account.$key = $scope.data.courseId; 
         $scope.data.opportunity.Owner.$key = $scope.data.course.Owner.$key; 

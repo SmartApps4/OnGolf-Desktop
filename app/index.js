@@ -71,7 +71,7 @@ function createMainWindow () {
     })
 
      // DevTools
-    win.openDevTools();
+    // win.openDevTools();
 
     return win;
 }

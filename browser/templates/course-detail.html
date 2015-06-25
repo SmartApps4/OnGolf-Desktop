@@ -72,13 +72,18 @@
     <a style="min-height:60px; margin-bottom:10px;" class="item contacts text-center item-icon-right item-icon-left" ng-click="updateCourse.opportunityStage.show()">
       <div class="Stage" ng-class="data.opportunity.Stage">
         <p style="color:#dddd;" ng-if="data.opportunity.Stage == null ">No Opp Data</p>
+
+        <!-- Need to check why not displaying. 
         <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Target (1%)' " ng-cloak>Target (1%)</p>
-        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Prospect (10%)'" ng-cloak>Prospect (10%)</p>
-        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Qualified (40%)'" ng-cloak>Qualified (40%)</p>
-        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Active (60%)'" ng-cloak>Active (60%)</p>
-        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Verbal (90%)'" ng-cloak>Verbal (90%)</p>
-        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Won (100%)'" ng-cloak>Won (100%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Prospect (10%)' " ng-cloak>Prospect (10%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Qualified (40%)' " ng-cloak>Qualified (40%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Active (60%)' " ng-cloak>Active (60%)</p>
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage == 'Verbal (90%)' " ng-cloak>Verbal (90%)</p>
+        --> 
+        <p style="color:#2878BB;" ng-if="data.opportunity.Stage != null " ng-cloak>{{data.opportunity.Stage}}</p>
       </div>
+
+
 
 
         
