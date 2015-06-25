@@ -22,6 +22,7 @@
     "app-install": "node ./tasks/app_npm_install",
     "build": "./node_modules/.bin/gulp build",
     "release": "./node_modules/.bin/gulp release --env=production",
+    "release2": "./node_modules/.bin/gulp release2 --env=production",
     "start": "node ./tasks/start",
     "test": "node ./tasks/start --env=test"
   },

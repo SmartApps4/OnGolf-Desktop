@@ -5,6 +5,7 @@ var gulpUtil = require('gulp-util');
 var jetpack = require('fs-jetpack');
 var asar = require('asar');
 var utils = require('./utils');
+var childProcess = require('child_process');
 
 var projectDir;
 var releasesDir;
@@ -57,7 +58,37 @@ var finalize = function () {
     // Copy icon
     projectDir.copy('resources/osx/icon.icns', finalAppDir.path('Contents/Resources/icon.icns'));
 
+
+    // //Sign the app before packaging
+    // var signId = '9KR3C928N5';
+
+    // childProcess.exec('codesign --deep --force --sign "' + signId + '" ' + finalAppDir.path() , function (err, stdout, stderr) {
+    //      if (err) {
+    //         throw err;
+    //     }
+    //     console.log(stdout);
+    // })
+    
+
     return Q();
+};
+
+var signApp = function () {
+    var deferred = Q.defer();
+     var signId = '9KR3C928N5';
+
+    var sign = childProcess.exec('codesign --deep --force --sign "' + signId + '" ' + finalAppDir.path() + " '--timestamp=none'", function (err, stdout, stderr) {
+         if (err) {
+            throw err;
+        }
+        console.log(stdout);
+    });
+
+    sign.on('close', function (code) {
+        deferred.resolve();
+    });
+
+    return deferred.promise;
 };
 
 var packToDmgFile = function () {
@@ -106,6 +137,7 @@ module.exports = function () {
     .then(copyRuntime)
     .then(packageBuiltApp)
     .then(finalize)
+    .then(signApp)
     .then(packToDmgFile)
     .then(cleanClutter);
 };
