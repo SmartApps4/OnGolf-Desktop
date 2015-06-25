@@ -1,0 +1,17 @@
+{
+  "name": "Ongolf_Desktop",
+  "productName": "OnGolf",
+  "identifier": "com.smartapps4.ongolf-desktop",
+  "description": "Custom Built smart app for OnGolf LLC",
+  "version": "0.1.0",
+  "author": "Smartapps4",
+  "main": "main.js",
+  "config": {
+    "target": "development"
+  },
+  "dependencies": {
+    "electron-gh-releases": "^1.0.1",
+    "fs-jetpack": "^0.6.4",
+    "moment": "^2.10.3"
+  }
+}
