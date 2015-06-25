@@ -1,6 +1,6 @@
 {
-  "name": "Ongolf_Desktop",
-  "productName": "OnGolf",
+  "name": "Ongolf_Desktop-dev",
+  "productName": "OnGolf Dev",
   "identifier": "com.smartapps4.ongolf-desktop",
   "description": "Custom Built smart app for OnGolf LLC",
   "version": "0.1.1",
