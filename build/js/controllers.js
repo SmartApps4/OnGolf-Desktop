@@ -50,7 +50,7 @@ angular.module('onGolf.controllers', [])
     });
   });
   // Login & go to initial state - NEED TO REPLACE WITH REAL LOGIN
-	$scope.doLogin = function() {
+  $scope.doLogin = function() {
     //Get UserInfo from CRM
     $ionicLoading.show({});
 
@@ -90,7 +90,7 @@ angular.module('onGolf.controllers', [])
          $ionicLoading.hide();
       })
     })
-	};
+  };
 
    $scope.showFailedPopup = function() {
     //$scope.data = {}

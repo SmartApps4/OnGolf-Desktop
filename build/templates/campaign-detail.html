@@ -51,7 +51,7 @@
 
             <div class="bar">
               <div class="button-bar">
-                    <a class="button button-clear" ng-class="{'active' : shownContent == 'follow'}" ng-click="shownContent = 'follow' ; resize()">Follow Ups</a>
+                    <a class="button button-clear" ng-class="{'active' : shownContent == 'follow'}" ng-click="shownContent = 'follow' ; resize()">Responses</a>
                     <a class="button button-clear" ng-class="{'active' : shownContent == 'contacts'}" ng-click="shownContent = 'contacts' ; resize()">Contacts</a>
                     <a class="button button-clear" ng-class="{'active' : shownContent == 'groups'}" ng-click="shownContent = 'groups' ; resize()">Groups</a>
                     
@@ -122,17 +122,21 @@
           
     </div>
     <div class="follow" ng-show="shownContent == 'follow'">
-          <div class="list">
+          <ion-list>
 
-              <a class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
+              <ion-item class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
                 
-                <i class="icon ion-ios-telephone"></i>{{response.score}}
+            <!--     <i class="icon ion-home"></i> -->
+                <div class="score" style="position:absolute; top:0; left: 11px; font-size:24px; text-align:center; font-weight:300; padding-top:25px; width:32px;">{{response.score}}</div>
                   <h2>{{response.email_address}}</h2>
-                  <p>Opens - {{response.actionCounts.open || 0}}  Clicks - {{response.actionCounts.click || 0}} </p>
+                  <p>Opens - {{response.actionCounts.open || 0}}     Clicks - {{response.actionCounts.click || 0}} </p>
                   <i class="icon ion-chevron-right icon-accessory"></i>
+
+                   <ion-option-button class="button-positive">Follow Up</ion-option-button>
+                
                
-            </a>
-          </div>
+            </ion-item>
+          </ion-list>
 
                <!-- EMPTY STATE -->
         <div ng-show="data.campaign.responses && (data.campaign.responses.length == 0)" class="empty-state text-center">

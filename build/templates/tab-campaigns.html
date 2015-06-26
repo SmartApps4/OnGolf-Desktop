@@ -1,3 +1,9 @@
+<style>
+  .item-complex .item-content {
+    min-height:70px;
+  }
+</style>
+
 <ion-view view-title="Marketing">
 <div class="bar bar-subheader">
       <!-- filters -->
@@ -21,8 +27,9 @@
         <h2>{{campaign.Campaignname}}</h2>
         <p>{{campaign.Campaign.Description}}</p>
 
-        <span class="badge badge-assertive">{{campaign.Responses}}</span>
+        <span class="badge badge-assertive" style="margin-top:8px;">{{campaign.Responses}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
+        
       </ion-item>
     </ion-list>
 
