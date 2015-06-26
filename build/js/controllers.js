@@ -1387,6 +1387,12 @@ if (ionic.Platform.isIOS()) {
 
   SA4Helper.changeState.campaignRefresh = true; 
 
+  $scope.activityCount = function(activities, activityType) {
+    _.countBy(activities, function(activity){
+      return activity.action; 
+    })
+  }
+
 
   $scope.doRefresh = function() {
     SA4Helper.showLoading(); 
@@ -1395,10 +1401,24 @@ if (ionic.Platform.isIOS()) {
     .then(function(results){
       $scope.data.campaign = results; 
       
-      //get Follow-ups 
-      currentCRM.getList(currentCRM.entities.campaignResponses, $stateParams.campaignId)
+     
+      //Need to refactor this format to avoid having to pass mashups back in to get config 
+      currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignSummary, $scope.data.campaign.CampaignCode)
       .then(function(results){
-        $scope.data.campaign.responses = results; 
+        $scope.data.campaign.summary = results.data; 
+      })
+
+       //get Follow-ups 
+      currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignResponses, $scope.data.campaign.CampaignCode)
+      .then(function(results){
+        $scope.data.campaign.responses = results.data; 
+
+        //Get opens, clicks, and calculate score 
+        angular.forEach($scope.data.campaign.responses.emails, function(response){
+          response.actionCounts = _.countBy(response.activity, 'action'); 
+          response.score = (response.actionCounts['open'] || 0) + (response.actionCounts['click'] || 0) * 3; 
+        })
+
       })
 
       //Now get targets async for this campaign 
@@ -1439,9 +1459,20 @@ if (ionic.Platform.isIOS()) {
 // SETTINGS CONTROLLERS
 // ------------------------------------------------- //
 
-.controller('SettingsCtrl', function($scope, $cordovaEmailComposer, SA4Helper, currentCRM) {
+.controller('SettingsCtrl', function($scope, $cordovaEmailComposer, SA4Helper, currentCRM, config) {
 
+  $scope.version = '';
   SA4Helper.changeState.settingsRefresh = true; 
+
+
+   if (typeof(process) != "undefined") {
+      var remote = require('remote');
+      var electronApp = remote.require('app');
+      $scope.version = electronApp.getVersion();
+    }
+    else {
+      $scope.version = config.VERSION;
+    }
   
 
   $scope.doRefresh = function(){

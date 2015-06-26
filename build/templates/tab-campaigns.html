@@ -18,10 +18,10 @@
     <!-- Campaigns -->
     <ion-list>
       <ion-item class="item-icon-right" ng-repeat="campaign in filteredCampaigns" type="item-text-wrap" href="#/tab/campaigns/{{campaign.$key}}">
-        <h2>{{campaign.Name}}</h2>
-        <p>{{campaign.Description}}</p>
+        <h2>{{campaign.Campaignname}}</h2>
+        <p>{{campaign.Campaign.Description}}</p>
 
-        <span style="margin-top:10px;" class="badge badge-assertive">{{campaign.SA4CampaignSummary.Responses}}</span>
+        <span class="badge badge-assertive">{{campaign.Responses}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

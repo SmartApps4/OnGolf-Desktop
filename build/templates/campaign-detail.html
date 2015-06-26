@@ -34,17 +34,17 @@
             <div class="row actions">
               <div class="col" >
                 <button class="button-clear">
-                       <h4>{{data.campaign.SA4CampaignSummary.Targets}}<br>Contacts</h4>
+                       <h4>{{data.campaign.Sa4campaignsummary.Targets}}<br>Contacts</h4>
                 </button>
               </div>
               <div class="col" >
                 <button class="button-clear">
-                   <h4>{{data.campaign.SA4CampaignSummary.Responses | number: 0}}<br>Opened</h4>
+                   <h4>{{data.campaign.summary.report_summary.unique_opens | number: 0}}<br>Opened</h4>
                 </button>
               </div>
               <div class="col">
                 <button class="button-clear">
-                   <h4>{{data.campaign.SA4CampaignSummary.Clicks | number: 0}} <br>Clicked</h4>
+                   <h4>{{data.campaign.summary.report_summary.clicks | number: 0}} <br>Clicked</h4>
                 </button>
               </div>
             </div>
@@ -124,12 +124,11 @@
     <div class="follow" ng-show="shownContent == 'follow'">
           <div class="list">
 
-              <a class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
+              <a class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
                 
-                <i class="icon ion-ios-telephone"></i>
-                  <h2>{{response.Contact.NamePFL}}-{{response.Contact.Course}}</h2>
-                  <p>{{response.ResponseMethod}}</p>
-                  <p>{{response.ResponseDate | amDateFormat:'dddd, MMMM Do YYYY'}}</p>
+                <i class="icon ion-ios-telephone"></i>{{response.score}}
+                  <h2>{{response.email_address}}</h2>
+                  <p>Opens - {{response.actionCounts.open || 0}}  Clicks - {{response.actionCounts.click || 0}} </p>
                   <i class="icon ion-chevron-right icon-accessory"></i>
                
             </a>

@@ -42,17 +42,9 @@ angular.module('SA4.CRM', [])
       },
       setConfig: function(userUpdate){
         return setConfig(userUpdate); 
-        
-        /* TODO not needed anymore - remove after verifying
-        config.userName = userUpdate.userName; 
-        config.password = userUpdate.password; 
-        config.fullName = userUpdate.fullName;  
-        config.email = userUpdate.email; 
-        config.phone = userUpdate.phone; 
-        config.useDemoData = userUpdate.useDemoData; 
-        config.CRMConfig = userUpdate.CRMConfig; 
-        return setConfig(config);
-        */
+      },
+      getMashup: function(mashupconfig, mashup,id) {
+        return InforCRM.getMashup(mashupconfig, mashup,id) 
       },
       entities: {
         feeds: {
@@ -103,7 +95,10 @@ angular.module('SA4.CRM', [])
 
    //Load Wizards 
    CRM[CRMData.config.CRM]['wizards'] = CRMData['wizards'];
-  
+
+   //load Mashup Configs 
+   CRM[CRMData.config.CRM]['mashups'] = CRMData['mashups']; 
+
   }; 
 
   var mapResult = function(input, map) {
@@ -222,7 +217,7 @@ return {
         //add relationship if present 
         (feed.relationship != null ? "/" + feed.relationship : "") + 
         //add format type
-        "?format=json" + 
+        "?format=json&count=200" + 
         //Build query section and add limitValue if querlyLimit included
         (feed.query != null || feed.queryLimit != null ? "&where=" :"" ) + 
         (feed.query != null ?  feed.query : "") + 
@@ -393,11 +388,22 @@ return {
 
      var getEntityActivities = function (config,entity, entityId){
       return $http.get(
-        CRM_Url + "/slx/dynamic/-/activities?format=json&where=" + entity  + " eq '" + entityId + "'",
+        config.CRM_Url + "/slx/dynamic/-/activities?format=json&where=" + entity  + " eq '" + entityId + "'",
         { headers: {'Authorization':  'Basic ' + btoa(config.userName + ":" + config.password) }}
       )  
     };
 
+    var getMashup = function(config, mashup, id) {
+        return $http.get(
+          config[mashup.type].url + mashup.feed + '/' + id + 
+            (mashup.subfeed != null ? '/' + mashup.subfeed : "") + 
+            '?fields=' + mashup.fields
+            + '&count=100',
+          { headers: {'Authorization':  'Basic ' + btoa('myersmemories' + ":" + config[mashup.type].authKey) }}
+        )  
+    };
+
+  
     return {
         getFeeds: getFeeds,
         getFeed: getFeed,
@@ -409,7 +415,8 @@ return {
         createItem: createItem, 
         getEntityDetails: getEntityDetails,
         getEntityHistory: getEntityHistory,
-        getEntityActivities: getEntityActivities  
+        getEntityActivities: getEntityActivities,
+        getMashup: getMashup
     }
 })
 

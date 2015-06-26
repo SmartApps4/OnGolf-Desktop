@@ -165,17 +165,25 @@ angular.module('onGolf.services', [])
         //deferred.resolve(counts.numOfActivities);     
     })
     currentCRM.getList(currentCRM.entities.campaignSummaries)
-    .then(function(results){  
+    .then(function(results){ 
+
+      counts.numOfResponses = _.sum(results, 'Responses'); 
+
+      /* 
       counts.numOfResponses = _.reduce(results, function(sum, el){
-      if (el.SA4CampaignSummary.Responses == null) {
-        el.SA4CampaignSummary.Responses = 0; 
-      }; 
-      return sum + el.SA4CampaignSummary.Responses; 
-      },0); 
-      //deferred.resolve(counts.numOfResponses); 
-    }) 
+        if (el.SA4CampaignSummary.Responses == null) {
+          el.SA4CampaignSummary.Responses = 0; 
+        }; 
+        return sum + el.SA4CampaignSummary.Responses; 
+        },0); 
+        //deferred.resolve(counts.numOfResponses); 
+      }) 
+      */
+  })
     return deferred.promise;  
   } 
+
+  
 
   //change state object used to share change status between controllers 
   var changeState = {

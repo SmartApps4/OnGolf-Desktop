@@ -9,7 +9,7 @@
 // 'onGolf.directives' is found in directives.js
 
 
-angular.module('onGolf', ['ionic', 'ngCordova', 'angularMoment', 'onGolf.controllers', 'onGolf.services', 'onGolf.directives', 
+angular.module('onGolf', ['ionic', 'ngCordova', 'angularMoment', 'onGolf.config', 'onGolf.controllers', 'onGolf.services', 'onGolf.directives', 
   'angulartics', 'angulartics.google.analytics', 'firebase', 'angular.filter', 'ct.ui.router.extras', 'SA4.CRM'])
 
 //Load config items from Firebase
