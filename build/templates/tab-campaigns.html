@@ -23,11 +23,12 @@
   
     <!-- Campaigns -->
     <ion-list>
-      <ion-item class="item-icon-right" ng-repeat="campaign in filteredCampaigns" type="item-text-wrap" href="#/tab/campaigns/{{campaign.$key}}">
-        <h2>{{campaign.Campaignname}}</h2>
-        <p>{{campaign.Campaign.Description}}</p>
+      <ion-item class="item-icon-right" ng-repeat="campaign in data.campaigns | filter : {status : 'sent'} | orderBy  : '-report_summary.unique_opens'  " type="item-text-wrap" href="#/tab/campaigns/{{campaign.id}}">
+        <h2>{{campaign.settings.title}}</h2>
+        <p>{{campaign.settings.subject_line}}</p>
 
-        <span class="badge badge-assertive" style="margin-top:8px;">{{campaign.Responses}}</span>
+
+        <span style="margin-top:10px;" class="badge badge-assertive">{{campaign.report_summary.unique_opens}}</span>
         <i class="icon ion-chevron-right icon-accessory"></i>
         
       </ion-item>

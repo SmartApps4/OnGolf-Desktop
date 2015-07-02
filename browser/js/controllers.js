@@ -548,7 +548,8 @@ angular.module('onGolf.controllers', [])
   var googleMapsUrl = "http://googlemaps.com?"; 
   // ios app
   if (ionic.Platform.isIOS()) {
-    googleMapsUrl = "comgooglemaps-x-callback://?x-success=sourceapp://?resume=true&x-source=OnGolf&" ; 
+    googleMapsUrl = "comgooglemaps-x-callback://?x-success=sourceapp://?resume=true&x-source=OnGolf&"; 
+    window.open(googleMapsUrl + "q=" + $scope.address) ;
   }
   // electron app
   else if (typeof(process) != "undefined") {
@@ -1362,11 +1363,22 @@ if (ionic.Platform.isIOS()) {
 
   $scope.doRefresh = function() {
     SA4Helper.showLoading(); 
-    currentCRM.getList(currentCRM.entities.campaignSummaries)
-    .then(function(results){
-      $scope.data.campaigns = results; 
-      $scope.changeSelect('All');
-    })
+
+      //currentCRM.getList(currentCRM.entities.campaignSummaries)
+      //.then(function(results){
+      //$scope.data.campaigns = results; 
+      //$scope.changeSelect('All');
+      //})
+
+      //changed to read directly from MailChimp   
+      currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaigns)
+      .then(function(results){
+        $scope.data.campaigns = results.data.campaigns; 
+        $scope.changeSelect('All');
+      })
+  
+
+      
     .finally(function(){
       SA4Helper.hideLoading($scope);
     })
@@ -1391,36 +1403,63 @@ if (ionic.Platform.isIOS()) {
     _.countBy(activities, function(activity){
       return activity.action; 
     })
-  }
+  };
 
+  $scope.checkContactIdCondition = function(index) {
+    //Need to refactor to get contactId for this selected response
+    return ('#');
+
+    /*
+    return checkcondition()
+        ? 'someState'
+        : '-' // hack: must return a non-empty string to prevent JS console error
+    */
+  };
 
   $scope.doRefresh = function() {
     SA4Helper.showLoading(); 
     //Get campaign info
-    currentCRM.getItem(currentCRM.entities.campaign, $stateParams.campaignId)
+
+     //Need to refactor this format to avoid having to pass mashups back in to get config 
+    currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignSummary, $stateParams.campaignId)
     .then(function(results){
-      $scope.data.campaign = results; 
-      
-     
-      //Need to refactor this format to avoid having to pass mashups back in to get config 
-      currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignSummary, $scope.data.campaign.CampaignCode)
-      .then(function(results){
-        $scope.data.campaign.summary = results.data; 
-      })
+        $scope.data.campaign = results.data; 
 
-       //get Follow-ups 
-      currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignResponses, $scope.data.campaign.CampaignCode)
-      .then(function(results){
-        $scope.data.campaign.responses = results.data; 
-
-        //Get opens, clicks, and calculate score 
-        angular.forEach($scope.data.campaign.responses.emails, function(response){
-          response.actionCounts = _.countBy(response.activity, 'action'); 
-          response.score = (response.actionCounts['open'] || 0) + (response.actionCounts['click'] || 0) * 3; 
+        //Get targets 
+         currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignList, $scope.data.campaign.recipients.list_id)
+        .then(function(results){
+          $scope.data.campaign.contacts = results.data.members; 
         })
+    })
 
+    //get Follow-ups 
+    currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignResponses, $stateParams.campaignId)
+    .then(function(results){
+      $scope.data.campaign.responses = results.data; 
+
+      //Get opens, clicks, and calculate score 
+      angular.forEach($scope.data.campaign.responses.emails, function(response){
+        response.actionCounts = _.countBy(response.activity, 'action'); 
+        response.score = (response.actionCounts['open'] || 0) + (response.actionCounts['click'] || 0) * 3; 
       })
+      SA4Helper.hideLoading($scope);
+    })  
 
+    //Get unsubscribes 
+    currentCRM.getMashup(currentCRM.mashups.config, currentCRM.mashups.campaignUnsubscribes, $stateParams.campaignId)
+    .then(function(results){
+        $scope.data.campaign.unsubscribes = results.data.unsubscribes; 
+    })
+
+   
+
+    /*
+    .finally(function(){SA4Helper.hideLoading($scope);  
+    })
+    */
+  
+
+    /*
       //Now get targets async for this campaign 
       //TODO - Need to get these groups seperately as they are not in the contacts tree 
       currentCRM.getList(currentCRM.entities.campaignTargets, $stateParams.campaignId)
@@ -1433,8 +1472,8 @@ if (ionic.Platform.isIOS()) {
         })
       })
     })
-    .finally(function(){SA4Helper.hideLoading($scope);  
-    })
+  */
+    
   };
 
    // Resize Screen when switching 'tabs'

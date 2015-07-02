@@ -27,14 +27,14 @@
           </div>
 
           <div class="campaign-info">
-            <h2>{{data.campaign.Name}}</h2>
+            <h2>{{data.campaign.settings.title}}</h2>
             <br>
             <hr>
           </div>
             <div class="row actions">
               <div class="col" >
                 <button class="button-clear">
-                       <h4>{{data.campaign.Sa4campaignsummary.Targets}}<br>Contacts</h4>
+                       <h4>{{data.campaign.emails_sent | number:0 }}<br>Contacts</h4>
                 </button>
               </div>
               <div class="col" >
@@ -53,7 +53,7 @@
               <div class="button-bar">
                     <a class="button button-clear" ng-class="{'active' : shownContent == 'follow'}" ng-click="shownContent = 'follow' ; resize()">Responses</a>
                     <a class="button button-clear" ng-class="{'active' : shownContent == 'contacts'}" ng-click="shownContent = 'contacts' ; resize()">Contacts</a>
-                    <a class="button button-clear" ng-class="{'active' : shownContent == 'groups'}" ng-click="shownContent = 'groups' ; resize()">Groups</a>
+                    <a class="button button-clear" ng-class="{'active' : shownContent == 'groups'}" ng-click="shownContent = 'groups' ; resize()">Unsubscribes</a>
                     
               </div>
           </div>
@@ -68,16 +68,16 @@
 
          <ion-list>
 
-            <ion-item class="item-remove-animate item-icon-left " ng-repeat="contact in data.campaign.contacts | orderBy:'name'" type="item-text-wrap" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key,contactId: contact.$key})">
+            <ion-item class="item-remove-animate item-icon-left " ng-repeat="contact in data.campaign.contacts | orderBy:'name'" type="item-text-wrap" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.Id,contactId: contact.contactId})">
         
             <div class="contactCircle">
-               {{ contact.LastName | limitTo:1 }}
+               {{ contact.merge_fields.FNAME | limitTo:1 }}
             </div>
 
               <div class="row">
                   <div class="col col-75">
-                    <h2>{{contact.FirstName}} {{contact.LastName}}</h2>
-                    <p>{{contact.AccountName}}</p>
+                    <h2>{{contact.merge_fields.FNAME}} {{contact.merge_fields.LNAME}}</h2>
+                    <p>{{contact.merge_fields.MMERGE4}}</p>
                   </div>
                   <div class="col col-25 col-center text-center">
                   <div class="indicator" ng-class="contact.Type">
@@ -107,14 +107,14 @@
 
           <ion-list>
 
-            <ion-item class="item item-remove-animate" ng-repeat="(groupKey,groupValue) in data.campaign.groups" type="item-text-wrap" href="">
+            <ion-item class="item item-remove-animate" ng-repeat="unsubscriber in data.campaign.unsubscribes" type="item-text-wrap" href="">
 
-              {{groupKey}} - {{groupValue}}
+              {{unsubscriber.email_address}} @ {{unsubscriber.timestamp | moment: 'MMM DD YYYY hh:mm a'}}
             </ion-item>
           </ion-list>
 
         <!-- EMPTY STATE -->
-        <div ng-show="data.campaign.groups && (data.campaign.groups.length == 0)" class="empty-state text-center">
+        <div ng-show="data.campaign.unsubscribes && (data.campaign.unsubscribes.length == 0)" class="empty-state text-center">
         <i class="icon ion-android-sad"></i>
           <h4>Looks like there are currently no groups assigned to this campaign.</h4>
         </div>
@@ -124,7 +124,11 @@
     <div class="follow" ng-show="shownContent == 'follow'">
           <ion-list>
 
-              <ion-item class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
+              <ion-item class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="{{checkContactIdCondition($index)}}">
+
+              <!--
+               <ion-item class="activity-item item item-icon-left item-icon-right" ng-repeat="response in data.campaign.responses.emails | orderBy: '-score'" ui-sref="tab.campaign-contact-detail({ campaignId: data.campaign.$key, contactId: response.Contact.$key })">
+               -->
                 
             <!--     <i class="icon ion-home"></i> -->
                 <div class="score" style="position:absolute; top:0; left: 11px; font-size:24px; text-align:center; font-weight:300; padding-top:25px; width:32px;">{{response.score}}</div>
@@ -134,7 +138,6 @@
 
                    <ion-option-button class="button-positive">Follow Up</ion-option-button>
                 
-               
             </ion-item>
           </ion-list>
 

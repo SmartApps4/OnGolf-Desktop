@@ -395,8 +395,9 @@ return {
 
     var getMashup = function(config, mashup, id) {
         return $http.get(
-          config[mashup.type].url + mashup.feed + '/' + id + 
-            (mashup.subfeed != null ? '/' + mashup.subfeed : "") + 
+          config[mashup.type].url + mashup.feed + 
+          (id != null ? '/' + id  : "") + 
+          (mashup.subfeed != null ? '/' + mashup.subfeed : "") + 
             '?fields=' + mashup.fields
             + '&count=100',
           { headers: {'Authorization':  'Basic ' + btoa('myersmemories' + ":" + config[mashup.type].authKey) }}
